@@ -304,6 +304,10 @@ import { submenuFilter } from '../components/sidenav/submenu.filter';
 import TasksComponent from '../management/tasks/tasks.component';
 import TaskService from "../services/task.service";
 
+// User notifications
+import UserNotificationsComponent from '../management/notifications/notifications.component';
+import UserNotificationService from "../services/userNotification.service";
+
 // Documentation
 import PageComponent from '../components/documentation/page.component';
 import PageSwaggerComponent from '../components/documentation/page-swagger.component';
@@ -550,6 +554,9 @@ angular.module('gravitee-management', [uiRouter, permission, uiPermission, 'ngMa
 
   .component('tasks', TasksComponent)
   .service('TaskService', TaskService)
+
+  .component('notifications', UserNotificationsComponent)
+  .service('UserNotificationService', UserNotificationService)
 
   .component('gvPage', PageComponent)
   .component('gvPageMarkdown', PageMarkdownComponent)

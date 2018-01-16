@@ -16,34 +16,40 @@
 
 import {User} from "../entities/user";
 import {PagedResult} from "../entities/pagedResult";
+import {UserNotification} from "../entities/userNotification";
+import {IRequestShortcutConfig} from "angular";
 
-class TaskService {
+class UserNotificationService {
   private URL: string;
   private Constants: any;
 
   constructor(private $http: ng.IHttpService, Constants) {
     'ngInject';
     this.Constants = Constants;
-    this.URL = this.Constants.baseURL+"user/tasks";
+    this.URL = this.Constants.baseURL+"user/notifications";
   }
 
-  getTaskSchedulerInSeconds() {
-    if (this.Constants.scheduler && this.Constants.scheduler.tasks) {
-      return this.Constants.scheduler.tasks;
+  getNotificationSchedulerInSeconds() {
+    if (this.Constants.scheduler && this.Constants.scheduler.notifications) {
+      return this.Constants.scheduler.notifications;
     }
     return 10;
   }
 
-  getTasks() {
+  getNotifications() {
     const config = { ignoreLoadingBar: true } as ng.IRequestShortcutConfig;
     return this.$http.get(this.URL, config);
   }
 
-  fillUserTasks(user: User, tasks: PagedResult) {
-    user.tasks.metadata = tasks.metadata;
-    user.tasks.data = tasks.data;
-    user.tasks.page = tasks.page;
+  delete(notification: UserNotification) {
+    return this.$http.delete(this.URL+"/"+notification.id);
+  }
+
+  fillUserNotifications(user: User, notifications: PagedResult) {
+    user.notifications.metadata = notifications.metadata;
+    user.notifications.data = notifications.data;
+    user.notifications.page = notifications.page;
   }
 }
 
-export default TaskService;
+export default UserNotificationService;

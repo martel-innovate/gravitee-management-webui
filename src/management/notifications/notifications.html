@@ -1,0 +1,23 @@
+<md-menu ng-if="$ctrl.user.username" md-offset="0 45">
+    <md-button class="gv-navbar-button" ng-click="$mdMenu.open($event)">
+        <ng-md-icon icon="notifications" gv-theme-element="portal.navbar.notifications"></ng-md-icon>
+        <span ng-if="$ctrl.getUserNotificationsCount()>0" flex class="badge gv-notification-badge" gv-theme-element="portal.navbar.user.notification">
+            {{ $ctrl.getUserNotificationsCount() }}
+        </span>
+    </md-button>
+    <md-menu-content class="gv-notification-content" width="6" ng-mouseleave="$mdMenu.close()">
+            <md-subheader>{{$ctrl.user.notifications.data.length}} notifications</md-subheader>
+            <md-list >
+                <md-list-item class="md-3-line" ng-repeat="notification in $ctrl.user.notifications.data" ng-click="null">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ notification.title }}</h3>
+                        <h4>{{ notification.message }}</h4>
+                        <p>{{ notification.created_at | humanDatetimeFilter }}</p>
+                    </div>
+                    <md-button class="md-secondary md-icon-button" ng-click="$ctrl.delete(notification)" md-prevent-menu-close="md-prevent-menu-close" aria-label="delete">
+                        <ng-md-icon icon="close"></ng-md-icon>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+    </md-menu-content>
+</md-menu>
